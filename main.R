@@ -3,4 +3,5 @@
 # Description:  Intro to Data Science Assignment
 setwd(".")
 file_names <- list.files("./data")
+temp_file <- read.csv("./data/201808.csv", skip = 7)
 str(file_names)
