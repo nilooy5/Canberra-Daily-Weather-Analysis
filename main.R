@@ -8,11 +8,14 @@ file_names <- list.files("./data")
 generate_tibble <- function(filename) {
   temp_tibble <- read_csv(
     paste0("./data/", filename),
+    na = c('calm',"Calm"),
     skip = 7,
     col_types = cols(
       'Date' = col_date(format = "%d/%m/%Y"),
       'Evaporation (mm)' = col_double(),
-      'Sunshine (hours)' = col_double()
+      'Sunshine (hours)' = col_double(),
+      '9am wind speed (km/h)' = col_double(),
+      'Time of maximum wind gust' = col_time()
     )
   )
 }
