@@ -10,7 +10,9 @@ generate_tibble <- function(filename) {
     paste0("./data/", filename),
     skip = 7,
     col_types = cols(
-      Date = col_date(format = "%d/%m/%Y")
+      'Date' = col_date(format = "%d/%m/%Y"),
+      'Evaporation (mm)' = col_double(),
+      'Sunshine (hours)' = col_double()
     )
   )
 }
