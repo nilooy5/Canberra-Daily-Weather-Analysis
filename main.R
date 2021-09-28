@@ -5,24 +5,31 @@ setwd(".")
 library("tidyverse")
 file_names <- list.files("./data")
 
-generate_tibble <- function(filename) {
+generate_tibble <- function(filename, date_format) {
   temp_tibble <- read_csv(
     paste0("./data/", filename),
-    na = c('calm',"Calm"),
+    na = c('calm',"Calm", " ", ""),
     skip = 7,
     col_types = cols(
-      'Date' = col_date(format = "%d/%m/%Y"),
+      'Date' = col_date(format = date_format),
       'Evaporation (mm)' = col_double(),
       'Sunshine (hours)' = col_double(),
-      '9am wind speed (km/h)' = col_double(),
-      'Time of maximum wind gust' = col_time()
+      '9am wind speed (km/h)' = col_double()
     )
   )
 }
-main_df <- generate_tibble(file_names[1])
+main_df <- generate_tibble(file_names[1],"%d/%m/%Y")
 
-for (i in file_names[2:length(file_names)]) {
-  temp <- generate_tibble(i)
+for (i in file_names[2:19]) {
+  temp <- generate_tibble(i, "%d/%m/%Y")
+  main_df <- rbind(main_df, temp)
+  print(paste("FINISHED PARSING:", i))
+}
+
+for (i in file_names[20:length(file_names)]) {
+  temp <- generate_tibble(i, "%m/%d/%Y")
+  names(temp) <- names(main_df)
+  print(names(main_df))
   main_df <- rbind(main_df, temp)
   print(paste("FINISHED PARSING:", i))
 }
