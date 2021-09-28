@@ -7,11 +7,11 @@ file_names <- list.files("./data_updated")
 
 generate_tibble <- function(filename, date_format) {
   temp_tibble <- read_csv(
-    paste0("./data/", filename),
-    na = c('calm',"Calm", " ", ""),
+    paste0("./data_updated/", filename),
+    na = c('calm',"Calm", " ", ""), # part B-1&2 answer
     skip = 7,
     col_types = cols(
-      'Date' = col_date(format = date_format),
+      'Date' = col_date(format = date_format), # par B-5 answer
       'Evaporation (mm)' = col_double(),
       'Sunshine (hours)' = col_double(),
       '9am wind speed (km/h)' = col_double()
@@ -29,11 +29,42 @@ for (i in file_names[2:19]) {
 for (i in file_names[20:length(file_names)]) {
   temp <- generate_tibble(i, "%m/%d/%Y")
   names(temp) <- names(main_df)
-  print(names(main_df))
   main_df <- rbind(main_df, temp)
   print(paste("FINISHED PARSING:", i))
 }
 
-problems(main_df)
+###############
+#   PART B    #
+###############
 
-str(file_names)
+# 1
+# done while importing table
+
+# 2
+# done while importing table
+
+# 3
+
+# 4
+main_df_col_names <- names(main_df)
+names(main_df) <- gsub(" ", "_", main_df_col_names)
+
+# 5
+# done while importing table
+
+# 6
+main_df <- main_df %>%
+  separate(col = Date, into = c ("Year", "Month", "Day"), "-")
+
+# 7
+
+# 8
+
+
+###############
+#   PART C    #
+###############
+
+###############
+#   PART D    #
+###############
