@@ -3,7 +3,7 @@
 # Description:  Intro to Data Science Assignment
 setwd(".")
 library("tidyverse")
-file_names <- list.files("./data")
+file_names <- list.files("./data_updated")
 
 generate_tibble <- function(filename, date_format) {
   temp_tibble <- read_csv(
