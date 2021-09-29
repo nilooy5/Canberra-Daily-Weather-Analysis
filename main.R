@@ -38,10 +38,10 @@ for (i in file_names[20:length(file_names)]) {
 ###############
 
 # 1
-# done while importing table
+# DONE while importing table
 
 # 2
-# done while importing table
+# DONE while importing table
 
 # 3
 
@@ -57,6 +57,11 @@ main_df <- main_df %>%
   separate(col = Date, into = c ("Year", "Month", "Day"), "-")
 
 # 7
+main_df$Year <- parse_integer(main_df$Year)
+main_df$Month <- parse_integer(main_df$Month)
+
+main_df$Year <- as_factor(main_df$Year)
+main_df$Month <- as_factor(main_df$Month)
 
 # 8
 
