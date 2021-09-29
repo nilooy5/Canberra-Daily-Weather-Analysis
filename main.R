@@ -43,9 +43,26 @@ for (i in file_names[20:length(file_names)]) {
 # 2
 # DONE while importing table
 
-# 3
+# 3: delete 90% NA columns
+calculate_NA_ratio <- function(data, variable) {
+  temp_var <- (length(which(is.na(data[variable]))) / length(data[[variable]]))
+  return (temp_var)
+}
+x <- c()
 
-# 4
+for (item in names(main_df)) {
+  ratio <- calculate_NA_ratio(main_df, item)
+  # print(paste(item, "(", length(main_df[[item]]), ")", ":", length(which(is.na(main_df[item]))), ratio))
+  if (ratio >= 0.9) {
+    x <- append(x,item)
+  }
+}
+
+print(x)
+main_df <- main_df[,!(names(main_df) %in% x)]
+names(main_df)
+
+# 4: delete spaces from col names
 main_df_col_names <- names(main_df)
 names(main_df) <- gsub(" ", "_", main_df_col_names)
 
