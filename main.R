@@ -1,7 +1,7 @@
 # Unit & ID:    Introduction to Data Science 11516
 # Name & ID:    Fazal Mahmud Niloy 3228358
 # Description:  Intro to Data Science Assignment
-setwd(".")
+# setwd(".")
 library("tidyverse")
 file_names <- list.files("./data_updated")
 
@@ -52,7 +52,7 @@ na_column_names <- c()
 
 for (item in names(main_df)) {
   ratio <- calculate_NA_ratio(main_df, item)
-  # print(paste(item, "(", length(main_df[[item]]), ")", ":", length(which(is.na(main_df[item]))), ratio))
+
   if (ratio >= 0.9) {
     na_column_names <- append(na_column_names,item)
   }
@@ -90,8 +90,6 @@ set_na_to_median <- function(data_frame, column_name) {
   data_frame[which(is.na(data_frame[column_name])),column_name] <- median_value
 }
 
-
-
 col_type_vector <- sapply(main_df, typeof)
 for (item in names(col_type_vector)[3:length(names(col_type_vector))]) {
   if (col_type_vector[item] == "integer" | col_type_vector[item] == "double") {
@@ -99,10 +97,33 @@ for (item in names(col_type_vector)[3:length(names(col_type_vector))]) {
   }
 }
 
+# for test
+main_df[c(575), "Speed_of_maximum_wind_gust_(km/h)"]
+set_na_to_median(main_df,"Speed_of_maximum_wind_gust_(km/h)")
+which(is.na(main_df["Speed_of_maximum_wind_gust_(km/h)"]))
+
 
 ###############
 #   PART C    #
 ###############
+
+# 1
+print_highlights <- function(col_name) {
+  print(paste(col_name, "(min):", min(main_df[[col_name]])))
+  print(paste(col_name, "(median) :", median(main_df[[col_name]])))
+  print(paste(col_name, "(mean) :", mean(main_df[[col_name]])))
+  print(paste(col_name, "(max) :", max(main_df[[col_name]])))
+}
+
+temperature_wind_vector <- c("Minimum_temperature",
+                             "Maximum_temperature",
+                             "9am_Temperature",
+                             "3pm_Temperature",
+                             "Speed_of_maximum_wind_gust_(km/h)")
+
+for (item in temperature_wind_vector) {
+  print_highlights(item)
+}
 
 ###############
 #   PART D    #
