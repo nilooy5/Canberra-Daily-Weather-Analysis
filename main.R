@@ -48,18 +48,18 @@ calculate_NA_ratio <- function(data, variable) {
   temp_var <- (length(which(is.na(data[variable]))) / length(data[[variable]]))
   return (temp_var)
 }
-x <- c()
+na_column_names <- c()
 
 for (item in names(main_df)) {
   ratio <- calculate_NA_ratio(main_df, item)
   # print(paste(item, "(", length(main_df[[item]]), ")", ":", length(which(is.na(main_df[item]))), ratio))
   if (ratio >= 0.9) {
-    x <- append(x,item)
+    na_column_names <- append(na_column_names,item)
   }
 }
 
-print(x)
-main_df <- main_df[,!(names(main_df) %in% x)]
+print(na_column_names)
+main_df <- main_df[,!(names(main_df) %in% na_column_names)]
 names(main_df)
 
 # 4: delete spaces from col names
@@ -81,6 +81,23 @@ main_df$Year <- as_factor(main_df$Year)
 main_df$Month <- as_factor(main_df$Month)
 
 # 8
+
+set_na_to_median <- function(data_frame, column_name) {
+
+  median_value <- median(data_frame[[column_name]], na.rm = TRUE)
+  print(paste(column_name, ":", median_value))
+
+  data_frame[which(is.na(data_frame[column_name])),column_name] <- median_value
+}
+
+
+
+col_type_vector <- sapply(main_df, typeof)
+for (item in names(col_type_vector)[3:length(names(col_type_vector))]) {
+  if (col_type_vector[item] == "integer" | col_type_vector[item] == "double") {
+    set_na_to_median(main_df, item)
+  }
+}
 
 
 ###############
