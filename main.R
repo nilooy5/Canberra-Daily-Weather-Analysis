@@ -99,7 +99,10 @@ for (item in names(col_type_vector)[3:length(names(col_type_vector))]) {
 
 # for test
 main_df[c(575), "Speed_of_maximum_wind_gust_(km/h)"]
-set_na_to_median(main_df,"Speed_of_maximum_wind_gust_(km/h)")
+# set_na_to_median("Speed_of_maximum_wind_gust_(km/h)")
+median_speed <- median(main_df[["Speed_of_maximum_wind_gust_(km/h)"]], na.rm = TRUE)
+na_speed <- which(is.na(main_df["Speed_of_maximum_wind_gust_(km/h)"]))
+main_df[na_speed, "Speed_of_maximum_wind_gust_(km/h)"] <- median_speed
 which(is.na(main_df["Speed_of_maximum_wind_gust_(km/h)"]))
 
 
@@ -124,6 +127,24 @@ temperature_wind_vector <- c("Minimum_temperature",
 for (item in temperature_wind_vector) {
   print_highlights(item)
 }
+
+# 2: Average of "Minimum_temperature" per month and year
+by_year_month <- group_by(main_df, Year, Month)
+summarise(by_year_month, average = mean(Minimum_temperature))
+
+main_df %>%
+  group_by(Year, Month) %>%
+  summarise(mean = mean(Minimum_temperature))
+
+# 3: Average of "Maximum_temperature" per month and year
+summarise(by_year_month, average = mean(Maximum_temperature))
+
+# 3: Average of Speed_of_maximum_wind_gust_(km/h) per Direction_of_maximum_wind_gust
+new_tibble <- main_df %>%
+  separate(col = Date, into = c ("Year", "Month", "Day"), "-")
+
+by_direction <- group_by(main_df, Direction_of_maximum_wind_gust)
+summarise(by_direction, average = mean("Speed_of_maximum_wind_gust_(km/h)", na.rm = TRUE))
 
 ###############
 #   PART D    #
