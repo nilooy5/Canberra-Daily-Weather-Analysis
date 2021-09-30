@@ -150,23 +150,37 @@ summarise(by_direction, average = mean(Speed_of_maximum_wind_gust_kmh, na.rm = T
 # 5: Which month has the highest rainfall quantity? and which year?
 monthly_rainfall <- new_tibble %>%
   group_by(Month, Year) %>%
-  summarise(maximum_rainfall = sum(Rainfall_mm))
+  summarise(total_rainfall_by_month = sum(Rainfall_mm))
 
 print(paste0("month of a year with most rainfall:"))
-head(arrange(monthly_rainfall, desc(maximum_rainfall)),1)
+head(arrange(monthly_rainfall, desc(total_rainfall_by_month)),1)
 
 
 yearly_rainfall <- new_tibble %>%
   group_by(Year) %>%
-  summarise(total_rainfall = sum(Rainfall_mm))
+  summarise(total_rainfall_by_year = sum(Rainfall_mm))
 
 print("year with most rainfall:")
-head(arrange(yearly_rainfall, desc(total_rainfall)),1)
+head(arrange(yearly_rainfall, desc(total_rainfall_by_year)),1)
 
 # 6: Dry month? year?
-arrange(monthly_rainfall)
-by_year_month <- group_by(new_tibble, Year, Month)
-summarise(by_year_month, total = mean(Minimum_temperature))
+# FOR MONTH
+if (length(which(monthly_rainfall$total_rainfall_by_month == 0)) == 0) {
+  print("There were no months with no rainfall")
+} else {
+  which(monthly_rainfall$total_rainfall_by_month == 0)
+}
+
+print(paste0("month of a month with least rainfall:"))
+tail(arrange(monthly_rainfall, desc(total_rainfall_by_month)), 1)
+# FOR YEAR
+if (length(which(yearly_rainfall$total_rainfall_by_year == 0)) == 0) {
+  print("There were no years with no rainfall")
+} else {
+  which(yearly_rainfall$total_rainfall_by_year == 0)
+}
+print(paste0("year with least rainfall:"))
+tail(arrange(yearly_rainfall, desc(total_rainfall_by_year)), 1)
 
 ###############
 #   PART D    #
