@@ -139,12 +139,34 @@ main_df %>%
 # 3: Average of "Maximum_temperature" per month and year
 summarise(by_year_month, average = mean(Maximum_temperature))
 
-# 3: Average of Speed_of_maximum_wind_gust_(km/h) per Direction_of_maximum_wind_gust
-new_tibble <- main_df %>%
-  separate(col = Date, into = c ("Year", "Month", "Day"), "-")
+# 4: Average of Speed_of_maximum_wind_gust_(km/h) per Direction_of_maximum_wind_gust
+new_tibble <- main_df
+new_tibble_col_names <- names(new_tibble)
+names(new_tibble) <- gsub("[()/]", "", new_tibble_col_names)
 
-by_direction <- group_by(main_df, Direction_of_maximum_wind_gust)
-summarise(by_direction, average = mean("Speed_of_maximum_wind_gust_(km/h)", na.rm = TRUE))
+by_direction <- group_by(new_tibble, Direction_of_maximum_wind_gust)
+summarise(by_direction, average = mean(Speed_of_maximum_wind_gust_kmh, na.rm = TRUE))
+
+# 5: Which month has the highest rainfall quantity? and which year?
+monthly_rainfall <- new_tibble %>%
+  group_by(Month, Year) %>%
+  summarise(maximum_rainfall = sum(Rainfall_mm))
+
+print(paste0("month of a year with most rainfall:"))
+head(arrange(monthly_rainfall, desc(maximum_rainfall)),1)
+
+
+yearly_rainfall <- new_tibble %>%
+  group_by(Year) %>%
+  summarise(total_rainfall = sum(Rainfall_mm))
+
+print("year with most rainfall:")
+head(arrange(yearly_rainfall, desc(total_rainfall)),1)
+
+# 6: Dry month? year?
+arrange(monthly_rainfall)
+by_year_month <- group_by(new_tibble, Year, Month)
+summarise(by_year_month, total = mean(Minimum_temperature))
 
 ###############
 #   PART D    #
