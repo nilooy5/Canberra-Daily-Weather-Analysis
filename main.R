@@ -81,29 +81,51 @@ main_df$Year <- as_factor(main_df$Year)
 main_df$Month <- as_factor(main_df$Month)
 
 # 8
+
 # median_value <- median(main_df[["9am_wind_speed_(km/h)"]], na.rm = TRUE)
 # na_indices <- which(is.na(main_df[["9am_wind_speed_(km/h)"]]))
 # main_df[na_indices, "9am_wind_speed_(km/h)"] <- median_value
 # # checking
 # which(is.na(main_df[["9am_wind_speed_(km/h)"]]))
+###########################################################################################
+# set_na_to_median <- function(data_frame, column_name) {
+#   median_value <- median(data_frame[[column_name]], na.rm = TRUE)
+#   na_indices <- which(is.na(data_frame[column_name]))
+#   data_frame[na_indices, column_name] <- median_value
+# }
+#
+# col_type_vector <- sapply(main_df, typeof)
+# for (item in names(col_type_vector)[3:length(names(col_type_vector))]) {
+#   if (col_type_vector[item] == "integer" | col_type_vector[item] == "double") {
+#     set_na_to_median(main_df, item)
+#   }
+# }
+###########################################################################################
 
+main_df_col_names <- names(main_df)
+names(main_df) <- gsub("[()/%39]", "", main_df_col_names)
 
-set_na_to_median <- function(data_frame, column_name) {
-  median_value <- median(data_frame[[column_name]], na.rm = TRUE)
-  na_indices <- which(is.na(data_frame[column_name]))
-  data_frame[na_indices, column_name] <- median_value
-}
+main_df[is.na(main_df$Minimum_temperature),]$Minimum_temperature <- median(main_df$Minimum_temperature, na.rm = TRUE)
+main_df[is.na(main_df$Maximum_temperature),]$Maximum_temperature <- median(main_df$Maximum_temperature, na.rm = TRUE)
+main_df[is.na(main_df$Rainfall_mm),]$Rainfall_mm <- median(main_df$Rainfall_mm, na.rm = TRUE)
+main_df[is.na(main_df$Speed_of_maximum_wind_gust_kmh),]$Speed_of_maximum_wind_gust_kmh <- median(main_df$Speed_of_maximum_wind_gust_kmh, na.rm = TRUE)
 
-col_type_vector <- sapply(main_df, typeof)
-for (item in names(col_type_vector)[3:length(names(col_type_vector))]) {
-  if (col_type_vector[item] == "integer" | col_type_vector[item] == "double") {
-    set_na_to_median(main_df, item)
-  }
-}
+main_df[is.na(main_df$am_Temperature),]$am_Temperature <- median(main_df$am_Temperature, na.rm = TRUE)
+main_df[is.na(main_df$am_relative_humidity_),]$am_relative_humidity_ <- median(main_df$am_relative_humidity_, na.rm = TRUE)
+main_df[is.na(main_df$am_cloud_amount_oktas),]$am_cloud_amount_oktas <- median(main_df$am_cloud_amount_oktas, na.rm = TRUE)
+main_df[is.na(main_df$am_wind_speed_kmh),]$am_wind_speed_kmh <- median(main_df$am_wind_speed_kmh, na.rm = TRUE)
+main_df[is.na(main_df$am_MSL_pressure_hPa),]$am_MSL_pressure_hPa <- median(main_df$am_MSL_pressure_hPa, na.rm = TRUE)
+
+main_df[is.na(main_df$pm_Temperature),]$pm_Temperature <- median(main_df$pm_Temperature, na.rm = TRUE)
+main_df[is.na(main_df$pm_relative_humidity_),]$pm_relative_humidity_ <- median(main_df$pm_relative_humidity_, na.rm = TRUE)
+main_df[is.na(main_df$pm_cloud_amount_oktas),]$pm_cloud_amount_oktas <- median(main_df$pm_cloud_amount_oktas, na.rm = TRUE)
+main_df[is.na(main_df$pm_wind_speed_kmh),]$pm_wind_speed_kmh <- median(main_df$pm_wind_speed_kmh, na.rm = TRUE)
+main_df[is.na(main_df$pm_MSL_pressure_hPa),]$pm_MSL_pressure_hPa <- median(main_df$pm_MSL_pressure_hPa, na.rm = TRUE)
+
+names(main_df) <- main_df_col_names
 
 # for test
 main_df[c(575), "Speed_of_maximum_wind_gust_(km/h)"]
-# set_na_to_median("Speed_of_maximum_wind_gust_(km/h)")
 median_speed <- median(main_df[["Speed_of_maximum_wind_gust_(km/h)"]], na.rm = TRUE)
 na_speed <- which(is.na(main_df["Speed_of_maximum_wind_gust_(km/h)"]))
 main_df[na_speed, "Speed_of_maximum_wind_gust_(km/h)"] <- median_speed
@@ -150,12 +172,8 @@ summarise(by_year_month, average = mean(Maximum_temperature))
 summarise(by_year, average = mean(Maximum_temperature))
 
 # 4: Average of Speed_of_maximum_wind_gust_(km/h) per Direction_of_maximum_wind_gust
-new_tibble <- main_df
-new_tibble_col_names <- names(new_tibble)
-names(new_tibble) <- gsub("[()/%]", "", new_tibble_col_names)
-
-by_direction <- group_by(new_tibble, Direction_of_maximum_wind_gust)
-summarise(by_direction, average = mean(Speed_of_maximum_wind_gust_kmh, na.rm = TRUE))
+by_direction <- group_by(main_df, `Direction_of_maximum_wind_gust`)
+summarise(by_direction, average = mean(`Speed_of_maximum_wind_gust_(km/h)`, na.rm = TRUE))
 
 # 5: Which month has the highest rainfall quantity? and which year?
 # month
