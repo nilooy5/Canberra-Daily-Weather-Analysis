@@ -190,13 +190,13 @@ print(paste0("year with least rainfall:"))
 tail(arrange(yearly_rainfall, desc(total_rainfall_by_year)), 1)
 
 # 7 humidity
-transmute(main_df, Year, Month, average = ("3pm_relative_humidity_"+"9am_relative_humidity_(%)")/2)
-humidity_tibble <- select(main_df, Year, Month, 11, 17)
-humidity_tibble <- humidity_tibble[which(main_df$Year == 2019),]
-humidity_tibble
-(humidity_tibble["3pm_relative_humidity_(%)"] + humidity_tibble["9am_relative_humidity_(%)"])/2
-
-
+humidity_tibble <- transmute(main_df, Year, Month, average = (`3pm_relative_humidity_(%)`+`9am_relative_humidity_(%)`)/2)
+humidity_tibble <- humidity_tibble[which(humidity_tibble$Year == 2019),]
+humidity_tibble <- humidity_tibble %>%
+  group_by(Year, Month) %>%
+  summarise(mean(average))
+print(paste0("month with highest humidity in 2019:"))
+head(arrange(humidity_tibble, desc(`mean(average)`)),1)
 ###############
 #   PART D    #
 ###############
