@@ -83,11 +83,15 @@ main_df$Month <- as_factor(main_df$Month)
 # 8
 
 set_na_to_median <- function(data_frame, column_name) {
-
+# new_sheet <- c(5,3,5,6,2,6,10)
+# new_sheet[which(new_sheet > 5)]<- 500
   median_value <- median(data_frame[[column_name]], na.rm = TRUE)
   print(paste(column_name, ":", median_value))
 
-  data_frame[which(is.na(data_frame[column_name])),column_name] <- median_value
+  na_indices <- which(is.na(data_frame[column_name]))
+  temp_col[na_indices] <- median_value
+
+  data_frame[[column_name]] <- temp_col
 }
 
 col_type_vector <- sapply(main_df, typeof)
@@ -197,6 +201,16 @@ humidity_tibble <- humidity_tibble %>%
   summarise(mean(average))
 print(paste0("month with highest humidity in 2019:"))
 head(arrange(humidity_tibble, desc(`mean(average)`)),1)
+
+# 8 temperature_wind_humidity
+temperature_wind_humidity_tibble <- transmute(main_df,
+                                           Year,
+                                           Month,
+                                           average_humidity = (`Minimum_temperature` + `Maximum_temperature`)/2,
+                                           average_humidity = (`3pm_relative_humidity_(%)` + `9am_relative_humidity_(%)`)/2,
+                                           average_windspeed = (`Speed_of_maximum_wind_gust_(km/h)` + `9am_wind_speed_(km/h)` + `3pm_wind_speed_(km/h)`)/3)
+which(is.na(main_df$`9am_wind_speed_(km/h)`))
+temperature_wind_humidity_tibble
 ###############
 #   PART D    #
 ###############
