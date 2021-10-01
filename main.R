@@ -81,17 +81,17 @@ main_df$Year <- as_factor(main_df$Year)
 main_df$Month <- as_factor(main_df$Month)
 
 # 8
+# median_value <- median(main_df[["9am_wind_speed_(km/h)"]], na.rm = TRUE)
+# na_indices <- which(is.na(main_df[["9am_wind_speed_(km/h)"]]))
+# main_df[na_indices, "9am_wind_speed_(km/h)"] <- median_value
+# # checking
+# which(is.na(main_df[["9am_wind_speed_(km/h)"]]))
+
 
 set_na_to_median <- function(data_frame, column_name) {
-# new_sheet <- c(5,3,5,6,2,6,10)
-# new_sheet[which(new_sheet > 5)]<- 500
   median_value <- median(data_frame[[column_name]], na.rm = TRUE)
-  print(paste(column_name, ":", median_value))
-
   na_indices <- which(is.na(data_frame[column_name]))
-  temp_col[na_indices] <- median_value
-
-  data_frame[[column_name]] <- temp_col
+  data_frame[na_indices, column_name] <- median_value
 }
 
 col_type_vector <- sapply(main_df, typeof)
