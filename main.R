@@ -129,6 +129,7 @@ for (item in temperature_wind_vector) {
 }
 
 # 2: Average of "Minimum_temperature" per month and year
+# by month
 by_year_month <- group_by(main_df, Year, Month)
 summarise(by_year_month, average = mean(Minimum_temperature))
 
@@ -136,18 +137,24 @@ main_df %>%
   group_by(Year, Month) %>%
   summarise(mean = mean(Minimum_temperature))
 
+#by year
+by_year <- group_by(main_df, Year)
+summarise(by_year, average = mean(Minimum_temperature))
+
 # 3: Average of "Maximum_temperature" per month and year
 summarise(by_year_month, average = mean(Maximum_temperature))
+summarise(by_year, average = mean(Maximum_temperature))
 
 # 4: Average of Speed_of_maximum_wind_gust_(km/h) per Direction_of_maximum_wind_gust
 new_tibble <- main_df
 new_tibble_col_names <- names(new_tibble)
-names(new_tibble) <- gsub("[()/]", "", new_tibble_col_names)
+names(new_tibble) <- gsub("[()/%]", "", new_tibble_col_names)
 
 by_direction <- group_by(new_tibble, Direction_of_maximum_wind_gust)
 summarise(by_direction, average = mean(Speed_of_maximum_wind_gust_kmh, na.rm = TRUE))
 
 # 5: Which month has the highest rainfall quantity? and which year?
+# month
 monthly_rainfall <- new_tibble %>%
   group_by(Month, Year) %>%
   summarise(total_rainfall_by_month = sum(Rainfall_mm))
@@ -155,7 +162,7 @@ monthly_rainfall <- new_tibble %>%
 print(paste0("month of a year with most rainfall:"))
 head(arrange(monthly_rainfall, desc(total_rainfall_by_month)),1)
 
-
+# year
 yearly_rainfall <- new_tibble %>%
   group_by(Year) %>%
   summarise(total_rainfall_by_year = sum(Rainfall_mm))
@@ -181,6 +188,14 @@ if (length(which(yearly_rainfall$total_rainfall_by_year == 0)) == 0) {
 }
 print(paste0("year with least rainfall:"))
 tail(arrange(yearly_rainfall, desc(total_rainfall_by_year)), 1)
+
+# 7 humidity
+transmute(main_df, Year, Month, average = ("3pm_relative_humidity_"+"9am_relative_humidity_(%)")/2)
+humidity_tibble <- select(main_df, Year, Month, 11, 17)
+humidity_tibble <- humidity_tibble[which(main_df$Year == 2019),]
+humidity_tibble
+(humidity_tibble["3pm_relative_humidity_(%)"] + humidity_tibble["9am_relative_humidity_(%)"])/2
+
 
 ###############
 #   PART D    #
