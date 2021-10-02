@@ -424,7 +424,7 @@ ggplot(
     color="white",
     size=2.5
   ) +
-  ggtitle("average humidity for all quarters in 2019") +
+  ggtitle("average windspeed for all quarters in 2019") +
   theme_minimal()
 
 ###############
