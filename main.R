@@ -216,13 +216,41 @@ print(paste0("month with highest humidity in 2019:"))
 head(arrange(humidity_tibble, desc(`mean(average)`)),1)
 
 # 8 temperature_wind_humidity
-temperature_wind_humidity_tibble <- transmute(main_df,
+
+temperature_wind_humidity_tibble <- transmute(main_df[which(main_df$Year == 2019),],
                                            Year,
                                            Month,
-                                           average_humidity = (`Minimum_temperature` + `Maximum_temperature`)/2,
+                                           average_temperature = (`Minimum_temperature` + `Maximum_temperature`)/2,
                                            average_humidity = (`3pm_relative_humidity_(%)` + `9am_relative_humidity_(%)`)/2,
                                            average_windspeed = (`Speed_of_maximum_wind_gust_(km/h)` + `9am_wind_speed_(km/h)` + `3pm_wind_speed_(km/h)`)/3)
 temperature_wind_humidity_tibble
+# month
+# temperature 2019
+temperature_tibble_2019 <- temperature_wind_humidity_tibble %>%
+  group_by(Month, Year) %>%
+  summarise(temperature_2019 = mean(average_temperature))
+head(arrange(temperature_tibble_2019, desc(temperature_2019)), 1)
+tail(arrange(temperature_tibble_2019, desc(temperature_2019)), 1)
+
+# QUARTERLY
+# temperature_2019_quarterly <- mean(temperature_tibble_2019[1:3, 3])
+
+# humidity 2019
+humidity_tibble_2019 <- temperature_wind_humidity_tibble %>%
+  group_by(Month, Year) %>%
+  summarise(humidity_2019 = mean(average_humidity))
+head(arrange(humidity_tibble_2019, desc(humidity_2019)), 1)
+tail(arrange(humidity_tibble_2019, desc(humidity_2019)), 1)
+
+# windspeed 2019
+windspeed_tibble_2019 <- temperature_wind_humidity_tibble %>%
+  group_by(Month, Year) %>%
+  summarise(windspeed_2019 = mean(average_windspeed))
+head(arrange(windspeed_tibble_2019, desc(windspeed_2019)), 1)
+tail(arrange(windspeed_tibble_2019, desc(windspeed_2019)), 1)
+
+# 8 temperature_wind_humidity
+
 ###############
 #   PART D    #
 ###############
