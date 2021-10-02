@@ -278,7 +278,7 @@ temperature_max_tibble_2019
 head(arrange(temperature_max_tibble_2019, desc(temperature_max_2019)), 1)
 tail(arrange(temperature_max_tibble_2019, desc(temperature_max_2019)), 1)
 
-# temperature 2019 QUARTERLY
+# temperature max 2019 QUARTERLY
 temperature_max_2019_quarterly <-
   data.frame(quarter = 1: 4,
              max_temperature = c(
@@ -323,7 +323,7 @@ tail(arrange(humidity_min_tibble_2019, desc(humidity_min_2019)), 1)
 # Humidity min 2019 QUARTERLY
 humidity_min_2019_quarterly <-
   data.frame(quarter = 1: 4,
-             average_humidity = c(
+             min_humidity = c(
                 min(as_vector(humidity_min_tibble_2019[1:3, 3])),
                 min(as_vector(humidity_min_tibble_2019[4:6, 3])),
                 min(as_vector(humidity_min_tibble_2019[7:9, 3])),
@@ -344,7 +344,7 @@ tail(arrange(humidity_max_tibble_2019, desc(humidity_max_2019)), 1)
 # Humidity max 2019 QUARTERLY
 humidity_max_2019_quarterly <-
   data.frame(quarter = 1: 4,
-             average_humidity = c(
+             max_humidity = c(
                 max(as_vector(humidity_max_tibble_2019[1:3, 3])),
                 max(as_vector(humidity_max_tibble_2019[4:6, 3])),
                 max(as_vector(humidity_max_tibble_2019[7:9, 3])),
@@ -354,26 +354,68 @@ humidity_max_2019_quarterly <-
 humidity_max_2019_quarterly <- as_tibble(humidity_max_2019_quarterly)
 humidity_max_2019_quarterly
 
-# windspeed 2019
-windspeed_tibble_2019 <- temperature_wind_humidity_tibble %>%
+# windspeed avg 2019
+windspeed_avg_tibble_2019 <- temperature_wind_humidity_tibble %>%
   group_by(Month, Year) %>%
-  summarise(windspeed_2019 = mean(average_windspeed))
-head(arrange(windspeed_tibble_2019, desc(windspeed_2019)), 1)
-tail(arrange(windspeed_tibble_2019, desc(windspeed_2019)), 1)
+  summarise(windspeed_avg_2019 = mean(average_windspeed))
+windspeed_avg_tibble_2019
+head(arrange(windspeed_avg_tibble_2019, desc(windspeed_avg_2019)), 1)
+tail(arrange(windspeed_avg_tibble_2019, desc(windspeed_avg_2019)), 1)
 
-# Windspeed 2019 QUARTERLY
-windspeed_2019_quarterly <-
+# Windspeed avg 2019 QUARTERLY
+windspeed_avg_2019_quarterly <-
   data.frame(quarter = 1: 4,
              average_windspeed = c(
-                mean(as_vector(windspeed_tibble_2019[1:3, 3])),
-                mean(as_vector(windspeed_tibble_2019[4:6, 3])),
-                mean(as_vector(windspeed_tibble_2019[7:9, 3])),
-                mean(as_vector(windspeed_tibble_2019[10:12, 3]))
+                mean(as_vector(windspeed_avg_tibble_2019[1:3, 3])),
+                mean(as_vector(windspeed_avg_tibble_2019[4:6, 3])),
+                mean(as_vector(windspeed_avg_tibble_2019[7:9, 3])),
+                mean(as_vector(windspeed_avg_tibble_2019[10:12, 3]))
              )
   )
-windspeed_2019_quarterly <- as_tibble(windspeed_2019_quarterly)
-windspeed_2019_quarterly
+windspeed_avg_2019_quarterly <- as_tibble(windspeed_avg_2019_quarterly)
+windspeed_avg_2019_quarterly
 
+# windspeed min 2019
+windspeed_min_tibble_2019 <- temperature_wind_humidity_tibble %>%
+  group_by(Month, Year) %>%
+  summarise(windspeed_min_2019 = min(average_windspeed))
+windspeed_min_tibble_2019
+head(arrange(windspeed_min_tibble_2019, desc(windspeed_min_2019)), 1)
+tail(arrange(windspeed_min_tibble_2019, desc(windspeed_min_2019)), 1)
+
+# Windspeed min 2019 QUARTERLY
+windspeed_min_2019_quarterly <-
+  data.frame(quarter = 1: 4,
+             min_windspeed = c(
+                min(as_vector(windspeed_min_tibble_2019[1:3, 3])),
+                min(as_vector(windspeed_min_tibble_2019[4:6, 3])),
+                min(as_vector(windspeed_min_tibble_2019[7:9, 3])),
+                min(as_vector(windspeed_min_tibble_2019[10:12, 3]))
+             )
+  )
+windspeed_min_2019_quarterly <- as_tibble(windspeed_min_2019_quarterly)
+windspeed_min_2019_quarterly
+
+# windspeed max 2019
+windspeed_max_tibble_2019 <- temperature_wind_humidity_tibble %>%
+  group_by(Month, Year) %>%
+  summarise(windspeed_max_2019 = max(average_windspeed))
+windspeed_max_tibble_2019
+head(arrange(windspeed_max_tibble_2019, desc(windspeed_max_2019)), 1)
+tail(arrange(windspeed_max_tibble_2019, desc(windspeed_max_2019)), 1)
+
+# Windspeed min 2019 QUARTERLY
+windspeed_max_2019_quarterly <-
+  data.frame(quarter = 1: 4,
+             max_windspeed = c(
+                max(as_vector(windspeed_max_tibble_2019[1:3, 3])),
+                max(as_vector(windspeed_max_tibble_2019[4:6, 3])),
+                max(as_vector(windspeed_max_tibble_2019[7:9, 3])),
+                max(as_vector(windspeed_max_tibble_2019[10:12, 3]))
+             )
+  )
+windspeed_max_2019_quarterly <- as_tibble(windspeed_max_2019_quarterly)
+windspeed_max_2019_quarterly
 
 
 # 8 temperature_wind_humidity
