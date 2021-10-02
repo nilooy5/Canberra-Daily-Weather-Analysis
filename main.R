@@ -287,6 +287,130 @@ windspeed_2019_quarterly
 
 # 8 temperature_wind_humidity
 
+# TEMPERATURE for all months
+ggplot(
+  data = temperature_tibble_2019,
+  aes(
+    x = Month,
+    y = temperature_2019
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = temperature_2019
+    ),
+    vjust = 1.6,
+    color = "black",
+    size = 2.5
+  ) +
+  theme_minimal()
+# TEMPERATURE for all quarters
+ggplot(
+  data = temperature_2019_quarterly,
+  aes(
+    x = quarter,
+    y = average_temperature
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = average_temperature
+    ),
+    vjust = 1.6,
+    color = "white",
+    size = 2.5
+  ) +
+  theme_minimal()
+
+# HUMIDITY for all months
+ggplot(
+  data = humidity_tibble_2019,
+  aes(
+    x = Month,
+    y = humidity_2019
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label=humidity_2019
+    ),
+    vjust=-.5,
+    color="black",
+    size=2.5
+  ) +
+  theme_minimal()
+# HUMIDITY all quarters
+ggplot(
+  data = humidity_2019_quarterly,
+  aes(x = quarter, y = average_humidity)
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label=average_humidity
+    ),
+    vjust=1.6,
+    color="white",
+    size=2.5
+  ) +
+  theme_minimal()
+
+# WINDSPEED for all months
+ggplot(
+  data = windspeed_tibble_2019,
+  aes(
+    x = Month,
+    y = windspeed_2019
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = windspeed_2019
+    ),
+    vjust = -.5,
+    color = "black",
+    size = 2.5
+  ) +
+  theme_minimal()
+
+# WINDSPEED all quarters
+ggplot(
+  data = windspeed_2019_quarterly,
+  aes(x = quarter, y = average_windspeed)
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label=average_windspeed
+    ),
+    vjust=1.6,
+    color="white",
+    size=2.5
+  ) +
+  theme_minimal()
+
 ###############
 #   PART D    #
 ###############
