@@ -8,8 +8,8 @@
 # Unit & ID:    Introduction to Data Science 11516
 # Name & ID:    Fazal Mahmud Niloy 3228358
 # Description:  Intro to Data Science Assignment
-# setwd(".")
-setwd("~/IDS_assignment_1")
+
+setwd(".")
 tinytex::install_tinytex()
 library("tidyverse")
 file_names <- list.files("./data_updated")
