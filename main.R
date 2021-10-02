@@ -291,25 +291,68 @@ temperature_max_2019_quarterly <-
 temperature_max_2019_quarterly <- as_tibble(temperature_max_2019_quarterly)
 temperature_max_2019_quarterly
 
-# humidity 2019
-humidity_tibble_2019 <- temperature_wind_humidity_tibble %>%
+# humidity average 2019
+humidity_avg_tibble_2019 <- temperature_wind_humidity_tibble %>%
   group_by(Month, Year) %>%
-  summarise(humidity_2019 = mean(average_humidity))
-head(arrange(humidity_tibble_2019, desc(humidity_2019)), 1)
-tail(arrange(humidity_tibble_2019, desc(humidity_2019)), 1)
+  summarise(humidity_avg_2019 = mean(average_humidity))
+humidity_avg_tibble_2019
+head(arrange(humidity_avg_tibble_2019, desc(humidity_avg_2019)), 1)
+tail(arrange(humidity_avg_tibble_2019, desc(humidity_avg_2019)), 1)
 
-# Humidity 2019 QUARTERLY
-humidity_2019_quarterly <-
+# Humidity avarage 2019 QUARTERLY
+humidity_avg_2019_quarterly <-
   data.frame(quarter = 1: 4,
              average_humidity = c(
-                mean(as_vector(humidity_tibble_2019[1:3, 3])),
-                mean(as_vector(humidity_tibble_2019[4:6, 3])),
-                mean(as_vector(humidity_tibble_2019[7:9, 3])),
-                mean(as_vector(humidity_tibble_2019[10:12, 3]))
+                mean(as_vector(humidity_avg_tibble_2019[1:3, 3])),
+                mean(as_vector(humidity_avg_tibble_2019[4:6, 3])),
+                mean(as_vector(humidity_avg_tibble_2019[7:9, 3])),
+                mean(as_vector(humidity_avg_tibble_2019[10:12, 3]))
              )
   )
-humidity_2019_quarterly <- as_tibble(humidity_2019_quarterly)
-humidity_2019_quarterly
+humidity_avg_2019_quarterly <- as_tibble(humidity_avg_2019_quarterly)
+humidity_avg_2019_quarterly
+
+# humidity min 2019
+humidity_min_tibble_2019 <- temperature_wind_humidity_tibble %>%
+  group_by(Month, Year) %>%
+  summarise(humidity_min_2019 = min(average_humidity))
+humidity_min_tibble_2019
+head(arrange(humidity_min_tibble_2019, desc(humidity_min_2019)), 1)
+tail(arrange(humidity_min_tibble_2019, desc(humidity_min_2019)), 1)
+
+# Humidity min 2019 QUARTERLY
+humidity_min_2019_quarterly <-
+  data.frame(quarter = 1: 4,
+             average_humidity = c(
+                min(as_vector(humidity_min_tibble_2019[1:3, 3])),
+                min(as_vector(humidity_min_tibble_2019[4:6, 3])),
+                min(as_vector(humidity_min_tibble_2019[7:9, 3])),
+                min(as_vector(humidity_min_tibble_2019[10:12, 3]))
+             )
+  )
+humidity_min_2019_quarterly <- as_tibble(humidity_min_2019_quarterly)
+humidity_min_2019_quarterly
+
+# humidity max 2019
+humidity_max_tibble_2019 <- temperature_wind_humidity_tibble %>%
+  group_by(Month, Year) %>%
+  summarise(humidity_max_2019 = max(average_humidity))
+humidity_max_tibble_2019
+head(arrange(humidity_max_tibble_2019, desc(humidity_max_2019)), 1)
+tail(arrange(humidity_max_tibble_2019, desc(humidity_max_2019)), 1)
+
+# Humidity max 2019 QUARTERLY
+humidity_max_2019_quarterly <-
+  data.frame(quarter = 1: 4,
+             average_humidity = c(
+                max(as_vector(humidity_max_tibble_2019[1:3, 3])),
+                max(as_vector(humidity_max_tibble_2019[4:6, 3])),
+                max(as_vector(humidity_max_tibble_2019[7:9, 3])),
+                max(as_vector(humidity_max_tibble_2019[10:12, 3]))
+             )
+  )
+humidity_max_2019_quarterly <- as_tibble(humidity_max_2019_quarterly)
+humidity_max_2019_quarterly
 
 # windspeed 2019
 windspeed_tibble_2019 <- temperature_wind_humidity_tibble %>%
