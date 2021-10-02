@@ -529,6 +529,52 @@ ggplot(
   ggtitle("average windspeed for all months in 2019") +
   theme_minimal()
 
+# WINDSPEED min for all months
+ggplot(
+  data = windspeed_min_tibble_2019,
+  aes(
+    x = Month,
+    y = windspeed_min_2019
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = windspeed_min_2019
+    ),
+    vjust = -.5,
+    color = "black",
+    size = 2.5
+  ) +
+  ggtitle("min windspeed for all months in 2019") +
+  theme_minimal()
+
+# WINDSPEED max for all months
+ggplot(
+  data = windspeed_max_tibble_2019,
+  aes(
+    x = Month,
+    y = windspeed_max_2019
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = windspeed_max_2019
+    ),
+    vjust = -.5,
+    color = "black",
+    size = 2.5
+  ) +
+  ggtitle("max windspeed for all months in 2019") +
+  theme_minimal()
+
 # WINDSPEED average all quarters
 ggplot(
   data = windspeed_avg_2019_quarterly,
@@ -547,4 +593,44 @@ ggplot(
     size = 2.5
   ) +
   ggtitle("average windspeed for all quarters in 2019") +
+  theme_minimal()
+
+# WINDSPEED min all quarters
+ggplot(
+  data = windspeed_min_2019_quarterly,
+  aes(x = quarter, y = min_windspeed)
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = min_windspeed
+    ),
+    vjust = 1.6,
+    color = "white",
+    size = 2.5
+  ) +
+  ggtitle("min windspeed for all quarters in 2019") +
+  theme_minimal()
+
+# WINDSPEED max all quarters
+ggplot(
+  data = windspeed_max_2019_quarterly,
+  aes(x = quarter, y = max_windspeed)
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = max_windspeed
+    ),
+    vjust = 1.6,
+    color = "white",
+    size = 2.5
+  ) +
+  ggtitle("max windspeed for all quarters in 2019") +
   theme_minimal()
