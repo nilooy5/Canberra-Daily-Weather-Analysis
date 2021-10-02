@@ -9,6 +9,8 @@
 # Name & ID:    Fazal Mahmud Niloy 3228358
 # Description:  Intro to Data Science Assignment
 # setwd(".")
+setwd("~/IDS_assignment_1")
+tinytex::install_tinytex()
 library("tidyverse")
 file_names <- list.files("./data_updated")
 
