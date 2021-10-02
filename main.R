@@ -12,8 +12,13 @@
 setwd("~/3228358_niloy_assignment1")
 tinytex::install_tinytex()
 library("tidyverse")
-file_names <- list.files("./data_updated")
 
+
+#' reading files from directory.
+#' change this folder name or move all data files in this folder
+file_names <- list.files("./data")
+
+#' loops through the `file_names` and reads the files directly as a tibble
 generate_tibble <- function(filename, date_format) {
   temp_tibble <- read_csv(
     paste0("./data_updated/", filename),
@@ -27,14 +32,16 @@ generate_tibble <- function(filename, date_format) {
     )
   )
 }
+#'  makes the main dataframe with the first file
 main_df <- generate_tibble(file_names[1],"%d/%m/%Y")
-
+#' loops through from 2nd to 19th file and appends them with the `main_df`
 for (i in file_names[2:19]) {
   temp <- generate_tibble(i, "%d/%m/%Y")
   main_df <- rbind(main_df, temp)
   print(paste("FINISHED PARSING:", i))
 }
 
+#' for august 2020 parses the date from mdY format
 for (i in file_names[20:length(file_names)]) {
   temp <- generate_tibble(i, "%m/%d/%Y")
   names(temp) <- names(main_df)
