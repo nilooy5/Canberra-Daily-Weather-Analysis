@@ -128,13 +128,6 @@ main_df[is.na(main_df$`3pm_cloud_amount_(oktas)`),]$`3pm_cloud_amount_(oktas)` <
 main_df[is.na(main_df$`3pm_wind_speed_(km/h)`),]$`3pm_wind_speed_(km/h)` <- median(main_df$`3pm_wind_speed_(km/h)`, na.rm = TRUE)
 main_df[is.na(main_df$`3pm_MSL_pressure_(hPa)`),]$`3pm_MSL_pressure_(hPa)` <- median(main_df$`3pm_MSL_pressure_(hPa)`, na.rm = TRUE)
 
-# for test
-main_df[c(575), "Speed_of_maximum_wind_gust_(km/h)"]
-median_speed <- median(main_df[["Speed_of_maximum_wind_gust_(km/h)"]], na.rm = TRUE)
-na_speed <- which(is.na(main_df["Speed_of_maximum_wind_gust_(km/h)"]))
-main_df[na_speed, "Speed_of_maximum_wind_gust_(km/h)"] <- median_speed
-which(is.na(main_df["Speed_of_maximum_wind_gust_(km/h)"]))
-
 
 ###############
 #   PART C    #
