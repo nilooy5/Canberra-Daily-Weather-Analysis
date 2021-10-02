@@ -9,7 +9,7 @@
 # Name & ID:    Fazal Mahmud Niloy 3228358
 # Description:  Intro to Data Science Assignment
 
-setwd(".")
+setwd("~/IDS_assignment_1")
 tinytex::install_tinytex()
 library("tidyverse")
 file_names <- list.files("./data_updated")
@@ -74,6 +74,7 @@ names(main_df)
 # 4: delete spaces from col names
 main_df_col_names <- names(main_df)
 names(main_df) <- gsub(" ", "_", main_df_col_names)
+print(names(main_df))
 
 # 5
 # done while importing table
@@ -229,24 +230,66 @@ temperature_wind_humidity_tibble
 
 # temperature 2019 all months
 ##    average
-temperature_tibble_2019 <- temperature_wind_humidity_tibble %>%
+temperature_avg_tibble_2019 <- temperature_wind_humidity_tibble %>%
   group_by(Month, Year) %>%
-  summarise(temperature_2019 = mean(average_temperature))
-head(arrange(temperature_tibble_2019, desc(temperature_2019)), 1)
-tail(arrange(temperature_tibble_2019, desc(temperature_2019)), 1)
+  summarise(temperature_avg_2019 = mean(average_temperature))
+head(arrange(temperature_avg_tibble_2019, desc(temperature_avg_2019)), 1)
+tail(arrange(temperature_avg_tibble_2019, desc(temperature_avg_2019)), 1)
+temperature_avg_tibble_2019
 
 # temperature 2019 QUARTERLY
-temperature_2019_quarterly <-
+temperature_avg_2019_quarterly <-
   data.frame(quarter = 1: 4,
              average_temperature = c(
-                mean(as_vector(temperature_tibble_2019[1:3, 3])),
-                mean(as_vector(temperature_tibble_2019[4:6, 3])),
-                mean(as_vector(temperature_tibble_2019[7:9, 3])),
-                mean(as_vector(temperature_tibble_2019[10:12, 3]))
+                mean(as_vector(temperature_avg_tibble_2019[1:3, 3])),
+                mean(as_vector(temperature_avg_tibble_2019[4:6, 3])),
+                mean(as_vector(temperature_avg_tibble_2019[7:9, 3])),
+                mean(as_vector(temperature_avg_tibble_2019[10:12, 3]))
              )
   )
-temperature_2019_quarterly <- as_tibble(temperature_2019_quarterly)
-temperature_2019_quarterly
+temperature_avg_2019_quarterly <- as_tibble(temperature_avg_2019_quarterly)
+temperature_avg_2019_quarterly
+
+##    min temperature
+temperature_min_tibble_2019 <- temperature_wind_humidity_tibble %>%
+  group_by(Month, Year) %>%
+  summarise(temperature_min_2019 = min(average_temperature))
+head(arrange(temperature_min_tibble_2019, desc(temperature_min_2019)), 1)
+tail(arrange(temperature_min_tibble_2019, desc(temperature_min_2019)), 1)
+
+# temperature 2019 QUARTERLY
+temperature_min_2019_quarterly <-
+  data.frame(quarter = 1: 4,
+             min_temperature = c(
+                min(as_vector(temperature_min_tibble_2019[1:3, 3])),
+                min(as_vector(temperature_min_tibble_2019[4:6, 3])),
+                min(as_vector(temperature_min_tibble_2019[7:9, 3])),
+                min(as_vector(temperature_min_tibble_2019[10:12, 3]))
+             )
+  )
+temperature_min_2019_quarterly <- as_tibble(temperature_min_2019_quarterly)
+temperature_min_2019_quarterly
+
+##    max temperature
+temperature_max_tibble_2019 <- temperature_wind_humidity_tibble %>%
+  group_by(Month, Year) %>%
+  summarise(temperature_max_2019 = max(average_temperature))
+temperature_max_tibble_2019
+head(arrange(temperature_max_tibble_2019, desc(temperature_max_2019)), 1)
+tail(arrange(temperature_max_tibble_2019, desc(temperature_max_2019)), 1)
+
+# temperature 2019 QUARTERLY
+temperature_max_2019_quarterly <-
+  data.frame(quarter = 1: 4,
+             max_temperature = c(
+                max(as_vector(temperature_max_tibble_2019[1:3, 3])),
+                max(as_vector(temperature_max_tibble_2019[4:6, 3])),
+                max(as_vector(temperature_max_tibble_2019[7:9, 3])),
+                max(as_vector(temperature_max_tibble_2019[10:12, 3]))
+             )
+  )
+temperature_max_2019_quarterly <- as_tibble(temperature_max_2019_quarterly)
+temperature_max_2019_quarterly
 
 # humidity 2019
 humidity_tibble_2019 <- temperature_wind_humidity_tibble %>%
