@@ -228,8 +228,7 @@ temperature_wind_humidity_tibble <- transmute(main_df[which(main_df$Year == 2019
                                            average_windspeed = (`Speed_of_maximum_wind_gust_(km/h)` + `9am_wind_speed_(km/h)` + `3pm_wind_speed_(km/h)`)/3)
 temperature_wind_humidity_tibble
 
-# temperature 2019 all months
-##    average
+# temperature avg 2019 all months
 temperature_avg_tibble_2019 <- temperature_wind_humidity_tibble %>%
   group_by(Month, Year) %>%
   summarise(temperature_avg_2019 = mean(average_temperature))
@@ -237,7 +236,7 @@ head(arrange(temperature_avg_tibble_2019, desc(temperature_avg_2019)), 1)
 tail(arrange(temperature_avg_tibble_2019, desc(temperature_avg_2019)), 1)
 temperature_avg_tibble_2019
 
-# temperature 2019 QUARTERLY
+# temperature avg 2019 QUARTERLY
 temperature_avg_2019_quarterly <-
   data.frame(quarter = 1: 4,
              average_temperature = c(
@@ -250,14 +249,14 @@ temperature_avg_2019_quarterly <-
 temperature_avg_2019_quarterly <- as_tibble(temperature_avg_2019_quarterly)
 temperature_avg_2019_quarterly
 
-##    min temperature
+# temperature min all months 2019
 temperature_min_tibble_2019 <- temperature_wind_humidity_tibble %>%
   group_by(Month, Year) %>%
   summarise(temperature_min_2019 = min(average_temperature))
 head(arrange(temperature_min_tibble_2019, desc(temperature_min_2019)), 1)
 tail(arrange(temperature_min_tibble_2019, desc(temperature_min_2019)), 1)
 
-# temperature 2019 QUARTERLY
+# temperature min 2019 QUARTERLY
 temperature_min_2019_quarterly <-
   data.frame(quarter = 1: 4,
              min_temperature = c(
@@ -270,7 +269,7 @@ temperature_min_2019_quarterly <-
 temperature_min_2019_quarterly <- as_tibble(temperature_min_2019_quarterly)
 temperature_min_2019_quarterly
 
-##    max temperature
+# temperature max all months
 temperature_max_tibble_2019 <- temperature_wind_humidity_tibble %>%
   group_by(Month, Year) %>%
   summarise(temperature_max_2019 = max(average_temperature))
@@ -422,10 +421,10 @@ windspeed_max_2019_quarterly
 
 # TEMPERATURE for all months
 ggplot(
-  data = temperature_tibble_2019,
+  data = temperature_avg_tibble_2019,
   aes(
     x = Month,
-    y = temperature_2019
+    y = temperature_avg_2019
   )
 ) +
   geom_bar(
@@ -434,7 +433,7 @@ ggplot(
   ) +
   geom_text(
     aes(
-      label = temperature_2019
+      label = temperature_avg_2019
     ),
     vjust = 1.6,
     color = "black",
@@ -444,7 +443,7 @@ ggplot(
   theme_minimal()
 # TEMPERATURE for all quarters
 ggplot(
-  data = temperature_2019_quarterly,
+  data = temperature_avg_2019_quarterly,
   aes(
     x = quarter,
     y = average_temperature
@@ -467,10 +466,10 @@ ggplot(
 
 # HUMIDITY for all months
 ggplot(
-  data = humidity_tibble_2019,
+  data = humidity_avg_tibble_2019,
   aes(
     x = Month,
-    y = humidity_2019
+    y = humidity_avg_2019
   )
 ) +
   geom_bar(
@@ -479,17 +478,17 @@ ggplot(
   ) +
   geom_text(
     aes(
-      label=humidity_2019
+      label = humidity_avg_2019
     ),
-    vjust=-.5,
-    color="black",
-    size=2.5
+    vjust = -.5,
+    color = "black",
+    size = 2.5
   ) +
   ggtitle("average humidity for all months in 2019") +
   theme_minimal()
 # HUMIDITY all quarters
 ggplot(
-  data = humidity_2019_quarterly,
+  data = humidity_avg_2019_quarterly,
   aes(x = quarter, y = average_humidity)
 ) +
   geom_bar(
@@ -498,21 +497,21 @@ ggplot(
   ) +
   geom_text(
     aes(
-      label=average_humidity
+      label = average_humidity
     ),
-    vjust=1.6,
-    color="white",
-    size=2.5
+    vjust = 1.6,
+    color = "white",
+    size = 2.5
   ) +
   ggtitle("average humidity for all quarters in 2019") +
   theme_minimal()
 
 # WINDSPEED for all months
 ggplot(
-  data = windspeed_tibble_2019,
+  data = windspeed_avg_tibble_2019,
   aes(
     x = Month,
-    y = windspeed_2019
+    y = windspeed_avg_2019
   )
 ) +
   geom_bar(
@@ -521,7 +520,7 @@ ggplot(
   ) +
   geom_text(
     aes(
-      label = windspeed_2019
+      label = windspeed_avg_2019
     ),
     vjust = -.5,
     color = "black",
@@ -532,7 +531,7 @@ ggplot(
 
 # WINDSPEED all quarters
 ggplot(
-  data = windspeed_2019_quarterly,
+  data = windspeed_avg_2019_quarterly,
   aes(x = quarter, y = average_windspeed)
 ) +
   geom_bar(
@@ -541,15 +540,11 @@ ggplot(
   ) +
   geom_text(
     aes(
-      label=average_windspeed
+      label = average_windspeed
     ),
-    vjust=1.6,
-    color="white",
-    size=2.5
+    vjust = 1.6,
+    color = "white",
+    size = 2.5
   ) +
   ggtitle("average windspeed for all quarters in 2019") +
   theme_minimal()
-
-###############
-#   PART D    #
-###############
