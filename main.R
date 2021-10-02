@@ -96,33 +96,28 @@ main_df$Month <- as_factor(main_df$Month)
 #
 # col_type_vector <- sapply(main_df, typeof)
 # for (item in names(col_type_vector)[3:length(names(col_type_vector))]) {
-#   if (col_type_vector[item] == "integer" | col_type_vector[item] == "double") {
+#   if (col_type_vector[item] == "integer" | col_type_vector[item] == "double"| col_type_vector[item] == "double") {
 #     set_na_to_median(main_df, item)
 #   }
 # }
 ###########################################################################################
 
-main_df_col_names <- names(main_df)
-names(main_df) <- gsub("[()/%39]", "", main_df_col_names)
+main_df[is.na(main_df$`Minimum_temperature`),]$`Minimum_temperature` <- median(main_df$`Minimum_temperature`, na.rm = TRUE)
+main_df[is.na(main_df$`Maximum_temperature`),]$`Maximum_temperature` <- median(main_df$`Maximum_temperature`, na.rm = TRUE)
+main_df[is.na(main_df$`Rainfall_(mm)`),]$`Rainfall_(mm)` <- median(main_df$`Rainfall_(mm)`, na.rm = TRUE)
+main_df[is.na(main_df$`Speed_of_maximum_wind_gust_(km/h)`),]$`Speed_of_maximum_wind_gust_(km/h)` <- median(main_df$`Speed_of_maximum_wind_gust_(km/h)`, na.rm = TRUE)
 
-main_df[is.na(main_df$Minimum_temperature),]$Minimum_temperature <- median(main_df$Minimum_temperature, na.rm = TRUE)
-main_df[is.na(main_df$Maximum_temperature),]$Maximum_temperature <- median(main_df$Maximum_temperature, na.rm = TRUE)
-main_df[is.na(main_df$Rainfall_mm),]$Rainfall_mm <- median(main_df$Rainfall_mm, na.rm = TRUE)
-main_df[is.na(main_df$Speed_of_maximum_wind_gust_kmh),]$Speed_of_maximum_wind_gust_kmh <- median(main_df$Speed_of_maximum_wind_gust_kmh, na.rm = TRUE)
+main_df[is.na(main_df$`9am_Temperature`),]$`9am_Temperature` <- median(main_df$`9am_Temperature`, na.rm = TRUE)
+main_df[is.na(main_df$`9am_relative_humidity_(%)`),]$`9am_relative_humidity_(%)` <- median(main_df$`9am_relative_humidity_(%)`, na.rm = TRUE)
+main_df[is.na(main_df$`9am_cloud_amount_(oktas)`),]$`9am_cloud_amount_(oktas)` <- median(main_df$`9am_cloud_amount_(oktas)`, na.rm = TRUE)
+main_df[is.na(main_df$`9am_wind_speed_(km/h)`),]$`9am_wind_speed_(km/h)` <- median(main_df$`9am_wind_speed_(km/h)`, na.rm = TRUE)
+main_df[is.na(main_df$`9am_MSL_pressure_(hPa)`),]$`9am_MSL_pressure_(hPa)` <- median(main_df$`9am_MSL_pressure_(hPa)`, na.rm = TRUE)
 
-main_df[is.na(main_df$am_Temperature),]$am_Temperature <- median(main_df$am_Temperature, na.rm = TRUE)
-main_df[is.na(main_df$am_relative_humidity_),]$am_relative_humidity_ <- median(main_df$am_relative_humidity_, na.rm = TRUE)
-main_df[is.na(main_df$am_cloud_amount_oktas),]$am_cloud_amount_oktas <- median(main_df$am_cloud_amount_oktas, na.rm = TRUE)
-main_df[is.na(main_df$am_wind_speed_kmh),]$am_wind_speed_kmh <- median(main_df$am_wind_speed_kmh, na.rm = TRUE)
-main_df[is.na(main_df$am_MSL_pressure_hPa),]$am_MSL_pressure_hPa <- median(main_df$am_MSL_pressure_hPa, na.rm = TRUE)
-
-main_df[is.na(main_df$pm_Temperature),]$pm_Temperature <- median(main_df$pm_Temperature, na.rm = TRUE)
-main_df[is.na(main_df$pm_relative_humidity_),]$pm_relative_humidity_ <- median(main_df$pm_relative_humidity_, na.rm = TRUE)
-main_df[is.na(main_df$pm_cloud_amount_oktas),]$pm_cloud_amount_oktas <- median(main_df$pm_cloud_amount_oktas, na.rm = TRUE)
-main_df[is.na(main_df$pm_wind_speed_kmh),]$pm_wind_speed_kmh <- median(main_df$pm_wind_speed_kmh, na.rm = TRUE)
-main_df[is.na(main_df$pm_MSL_pressure_hPa),]$pm_MSL_pressure_hPa <- median(main_df$pm_MSL_pressure_hPa, na.rm = TRUE)
-
-names(main_df) <- main_df_col_names
+main_df[is.na(main_df$`3pm_Temperature`),]$`3pm_Temperature` <- median(main_df$`3pm_Temperature`, na.rm = TRUE)
+main_df[is.na(main_df$`3pm_relative_humidity_(%)`),]$`3pm_relative_humidity_(%)` <- median(main_df$`3pm_relative_humidity_(%)`, na.rm = TRUE)
+main_df[is.na(main_df$`3pm_cloud_amount_(oktas)`),]$`3pm_cloud_amount_(oktas)` <- median(main_df$`3pm_cloud_amount_(oktas)`, na.rm = TRUE)
+main_df[is.na(main_df$`3pm_wind_speed_(km/h)`),]$`3pm_wind_speed_(km/h)` <- median(main_df$`3pm_wind_speed_(km/h)`, na.rm = TRUE)
+main_df[is.na(main_df$`3pm_MSL_pressure_(hPa)`),]$`3pm_MSL_pressure_(hPa)` <- median(main_df$`3pm_MSL_pressure_(hPa)`, na.rm = TRUE)
 
 # for test
 main_df[c(575), "Speed_of_maximum_wind_gust_(km/h)"]
