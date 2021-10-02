@@ -152,37 +152,37 @@ for (item in temperature_wind_vector) {
 # 2: Average of "Minimum_temperature" per month and year
 # by month
 by_year_month <- group_by(main_df, Year, Month)
-summarise(by_year_month, average = mean(Minimum_temperature))
+summarise(by_year_month, average_minimum_temperature_monthly = mean(Minimum_temperature))
 
 main_df %>%
   group_by(Year, Month) %>%
-  summarise(mean = mean(Minimum_temperature))
+  summarise(average_minimum_temperature_monthly = mean(Minimum_temperature))
 
 #by year
 by_year <- group_by(main_df, Year)
-summarise(by_year, average = mean(Minimum_temperature))
+summarise(by_year, average_minimum_temperature_yearly = mean(Minimum_temperature))
 
 # 3: Average of "Maximum_temperature" per month and year
-summarise(by_year_month, average = mean(Maximum_temperature))
-summarise(by_year, average = mean(Maximum_temperature))
+summarise(by_year_month, average_maximum_temperature_by_month = mean(Maximum_temperature))
+summarise(by_year, average_maximum_temperature_by_year = mean(Maximum_temperature))
 
 # 4: Average of Speed_of_maximum_wind_gust_(km/h) per Direction_of_maximum_wind_gust
 by_direction <- group_by(main_df, `Direction_of_maximum_wind_gust`)
-summarise(by_direction, average = mean(`Speed_of_maximum_wind_gust_(km/h)`, na.rm = TRUE))
+summarise(by_direction, average_speed_of_max_wind_gust = mean(`Speed_of_maximum_wind_gust_(km/h)`, na.rm = TRUE))
 
 # 5: Which month has the highest rainfall quantity? and which year?
 # month
-monthly_rainfall <- new_tibble %>%
+monthly_rainfall <- main_df %>%
   group_by(Month, Year) %>%
-  summarise(total_rainfall_by_month = sum(Rainfall_mm))
+  summarise(total_rainfall_by_month = sum(`Rainfall_(mm)`))
 
 print(paste0("month of a year with most rainfall:"))
 head(arrange(monthly_rainfall, desc(total_rainfall_by_month)),1)
 
 # year
-yearly_rainfall <- new_tibble %>%
+yearly_rainfall <- main_df %>%
   group_by(Year) %>%
-  summarise(total_rainfall_by_year = sum(Rainfall_mm))
+  summarise(total_rainfall_by_year = sum(`Rainfall_(mm)`))
 
 print("year with most rainfall:")
 head(arrange(yearly_rainfall, desc(total_rainfall_by_year)),1)
@@ -195,7 +195,7 @@ if (length(which(monthly_rainfall$total_rainfall_by_month == 0)) == 0) {
   which(monthly_rainfall$total_rainfall_by_month == 0)
 }
 
-print(paste0("month of a month with least rainfall:"))
+print(paste0("month of a year with least rainfall:"))
 tail(arrange(monthly_rainfall, desc(total_rainfall_by_month)), 1)
 # FOR YEAR
 if (length(which(yearly_rainfall$total_rainfall_by_year == 0)) == 0) {
@@ -222,7 +222,6 @@ temperature_wind_humidity_tibble <- transmute(main_df,
                                            average_humidity = (`Minimum_temperature` + `Maximum_temperature`)/2,
                                            average_humidity = (`3pm_relative_humidity_(%)` + `9am_relative_humidity_(%)`)/2,
                                            average_windspeed = (`Speed_of_maximum_wind_gust_(km/h)` + `9am_wind_speed_(km/h)` + `3pm_wind_speed_(km/h)`)/3)
-which(is.na(main_df$`9am_wind_speed_(km/h)`))
 temperature_wind_humidity_tibble
 ###############
 #   PART D    #
