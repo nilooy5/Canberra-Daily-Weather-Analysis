@@ -9,7 +9,7 @@
 #' Course:      **Master of Data Science**
 #' Description: **Intro to Data Science Assignment 1**
 
-setwd("~/3228358_niloy_assignment1")
+setwd("~/u3228358_niloy_assignment1")
 tinytex::install_tinytex()
 library("tidyverse")
 
