@@ -441,6 +441,53 @@ ggplot(
   ) +
   ggtitle("average temperature for all months in 2019") +
   theme_minimal()
+
+# TEMPERATURE min for all months
+ggplot(
+  data = temperature_min_tibble_2019,
+  aes(
+    x = Month,
+    y = temperature_min_2019
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = temperature_min_2019
+    ),
+    vjust = 1.6,
+    color = "black",
+    size = 2.5
+  ) +
+  ggtitle("minimum temperature for all months in 2019") +
+  theme_minimal()
+
+# TEMPERATURE max for all months
+ggplot(
+  data = temperature_max_tibble_2019,
+  aes(
+    x = Month,
+    y = temperature_max_2019
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = temperature_max_2019
+    ),
+    vjust = 1.6,
+    color = "black",
+    size = 2.5
+  ) +
+  ggtitle("maximum temperature for all months in 2019") +
+  theme_minimal()
+
 # TEMPERATURE average for all quarters
 ggplot(
   data = temperature_avg_2019_quarterly,
@@ -464,6 +511,53 @@ ggplot(
   ggtitle("average temperature for all quarters in 2019") +
   theme_minimal()
 
+# TEMPERATURE min for all quarters
+ggplot(
+  data = temperature_min_2019_quarterly,
+  aes(
+    x = quarter,
+    y = min_temperature
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = min_temperature
+    ),
+    vjust = 1.6,
+    color = "white",
+    size = 2.5
+  ) +
+  ggtitle("minimum temperature for all quarters in 2019") +
+  theme_minimal()
+
+# TEMPERATURE max for all quarters
+ggplot(
+  data = temperature_max_2019_quarterly,
+  aes(
+    x = quarter,
+    y = max_temperature
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = max_temperature
+    ),
+    vjust = 1.6,
+    color = "white",
+    size = 2.5
+  ) +
+  ggtitle("maximum temperature for all quarters in 2019") +
+  theme_minimal()
+
+
 # HUMIDITY average for all months
 ggplot(
   data = humidity_avg_tibble_2019,
@@ -486,6 +580,54 @@ ggplot(
   ) +
   ggtitle("average humidity for all months in 2019") +
   theme_minimal()
+
+# HUMIDITY min for all months
+ggplot(
+  data = humidity_min_tibble_2019,
+  aes(
+    x = Month,
+    y = humidity_min_2019
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = humidity_min_2019
+    ),
+    vjust = -.5,
+    color = "black",
+    size = 2.5
+  ) +
+  ggtitle("minimum humidity for all months in 2019") +
+  theme_minimal()
+
+# HUMIDITY max for all months
+ggplot(
+  data = humidity_max_tibble_2019,
+  aes(
+    x = Month,
+    y = humidity_max_2019
+  )
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = humidity_max_2019
+    ),
+    vjust = -.5,
+    color = "black",
+    size = 2.5
+  ) +
+  ggtitle("maximum humidity for all months in 2019") +
+  theme_minimal()
+
+
 # HUMIDITY average all quarters
 ggplot(
   data = humidity_avg_2019_quarterly,
@@ -504,6 +646,46 @@ ggplot(
     size = 2.5
   ) +
   ggtitle("average humidity for all quarters in 2019") +
+  theme_minimal()
+
+# HUMIDITY min all quarters
+ggplot(
+  data = humidity_min_2019_quarterly,
+  aes(x = quarter, y = min_humidity)
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = min_humidity
+    ),
+    vjust = 1.6,
+    color = "white",
+    size = 2.5
+  ) +
+  ggtitle("minimum humidity for all quarters in 2019") +
+  theme_minimal()
+
+# HUMIDITY max all quarters
+ggplot(
+  data = humidity_max_2019_quarterly,
+  aes(x = quarter, y = max_humidity)
+) +
+  geom_bar(
+    stat = "identity",
+    fill = "steelblue"
+  ) +
+  geom_text(
+    aes(
+      label = max_humidity
+    ),
+    vjust = 1.6,
+    color = "white",
+    size = 2.5
+  ) +
+  ggtitle("maximum humidity for all quarters in 2019") +
   theme_minimal()
 
 # WINDSPEED average for all months
@@ -549,7 +731,7 @@ ggplot(
     color = "black",
     size = 2.5
   ) +
-  ggtitle("min windspeed for all months in 2019") +
+  ggtitle("minimum windspeed for all months in 2019") +
   theme_minimal()
 
 # WINDSPEED max for all months
@@ -572,7 +754,7 @@ ggplot(
     color = "black",
     size = 2.5
   ) +
-  ggtitle("max windspeed for all months in 2019") +
+  ggtitle("maximum windspeed for all months in 2019") +
   theme_minimal()
 
 # WINDSPEED average all quarters
@@ -612,7 +794,7 @@ ggplot(
     color = "white",
     size = 2.5
   ) +
-  ggtitle("min windspeed for all quarters in 2019") +
+  ggtitle("minimum windspeed for all quarters in 2019") +
   theme_minimal()
 
 # WINDSPEED max all quarters
@@ -632,5 +814,5 @@ ggplot(
     color = "white",
     size = 2.5
   ) +
-  ggtitle("max windspeed for all quarters in 2019") +
+  ggtitle("maximum windspeed for all quarters in 2019") +
   theme_minimal()
