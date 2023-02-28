@@ -1,14 +1,3 @@
-#' ---
-#' title: Assignment 1
-#' author: Fazal Mahmud Niloy (u3228358)
-#' output: pdf_document
-#' ---
-
-# Start-------------------------------------------
-#' Unit & ID:   **Introduction to Data Science 11516**
-#' Course:      **Master of Data Science**
-#' Description: **Intro to Data Science Assignment 1**
-
 setwd("~/u3228358_niloy_assignment1")
 tinytex::install_tinytex()
 library("tidyverse")
